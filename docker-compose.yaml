@@ -1,0 +1,10 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: annotation_postgres_container
+    environment:
+      POSTGRES_DB: annotation_db
+      POSTGRES_USER: annotation_user
+      POSTGRES_PASSWORD: annotation
+    ports:
+      - "5433:5432"
