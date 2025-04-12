@@ -1,7 +1,7 @@
 @baseUrl = http://localhost:3000
 @existingAdmin = Isaac
 @existingUser = Galileo
-@random= 1354
+@random= 134575
 
 ### Get all users
 GET {{baseUrl}}/users
@@ -71,5 +71,22 @@ Content-Type: application/json
 > {%
   client.test("Response status is 409 because username already exists", function () {
     client.assert(response.status === 409, "Expected status 409, but received " + response.status);
+  });
+%}
+
+### Try to register a new user of type ADMIN
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username" : "OdyseeDeLEspace2001",
+  "password": "42",
+  "creatorUsername": "{{existingAdmin}}",
+  "type": "ADMIN"
+}
+
+> {%
+  client.test("Response status is 400 because user type is not USER", function () {
+    client.assert(response.status === 400, "Expected status 400, but received " + response.status);
   });
 %}
