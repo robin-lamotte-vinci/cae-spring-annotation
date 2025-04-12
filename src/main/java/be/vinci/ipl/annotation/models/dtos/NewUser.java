@@ -1,6 +1,7 @@
 package be.vinci.ipl.annotation.models.dtos;
 
 import be.vinci.ipl.annotation.annotations.UniqueUsername;
+import be.vinci.ipl.annotation.annotations.ValidAdminCreatorUsername;
 import be.vinci.ipl.annotation.models.entities.User.Types;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +23,7 @@ public class NewUser {
   private String password;
 
   @NotBlank
+  @ValidAdminCreatorUsername
   private String creatorUsername;
 
   @NotNull
