@@ -1,12 +1,18 @@
 package be.vinci.ipl.annotation.controllers;
 
+import be.vinci.ipl.annotation.models.dtos.NewUser;
 import be.vinci.ipl.annotation.models.entities.User;
 import be.vinci.ipl.annotation.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * UserController to handle user-related requests.
@@ -46,6 +52,23 @@ public class UserController {
   @GetMapping({"", "/"})
   public Iterable<User> getAllUsers() {
     return userService.getAllUsers();
+  }
+
+  @Operation(
+      summary = "Register a new user",
+      description = "Register a new user with provided details "
+          + "and return the registration status.",
+      responses = {
+          @ApiResponse(responseCode = "200", description = "Registration successful"),
+          @ApiResponse(responseCode = "400", description = "Registration failed"),
+      })
+  @PostMapping("/register")
+  public void register(@Valid @RequestBody NewUser newUser) {
+
+    User registeredUser = userService.register(newUser);
+    if (registeredUser == null) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Registration failed");
+    }
   }
 
 }
