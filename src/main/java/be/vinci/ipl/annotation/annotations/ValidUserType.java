@@ -1,6 +1,8 @@
 package be.vinci.ipl.annotation.annotations;
 
 import be.vinci.ipl.annotation.models.entities.User.Types;
+import be.vinci.ipl.annotation.validators.UserTypeValidator;
+import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -10,6 +12,7 @@ import java.lang.annotation.Target;
 /**
  * Annotation to validate that a user type is valid based on the allowed types.
  */
+@Constraint(validatedBy = UserTypeValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidUserType {
