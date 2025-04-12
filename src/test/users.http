@@ -1,4 +1,75 @@
 @baseUrl = http://localhost:3000
+@existingAdmin = Isaac
+@existingUser = Galileo
+@random= 1354
 
 ### Get all users
 GET {{baseUrl}}/users
+
+### Register a new user
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username" : "Archimede{{random}}",
+  "password": "EUREKA",
+  "creatorUsername": "{{existingAdmin}}",
+  "type": "USER"
+}
+
+> {%
+  client.test("User successfully registered", function () {
+    client.assert(response.status === 200, "Response status is not 200");
+  });
+%}
+
+### Try to register a new user with empty username
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username" : "",
+  "password": "e=mc2",
+  "creatorUsername": "{{existingAdmin}}",
+  "type": "USER"
+}
+
+> {%
+  client.test("Response status is 400 because username is empty", function () {
+    client.assert(response.status === 400, "Expected status 400, but received " + response.status);
+  });
+%}
+
+### Try to register a new user with a creator of type USER
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username" : "Copernic",
+  "password": "hérétiqueHeliocentriste",
+  "creatorUsername": "{{existingUser}}",
+  "type": "USER"
+}
+
+> {%
+  client.test("Response status is 400 because creator isn't of admin type", function () {
+    client.assert(response.status === 400, "Expected status 400, but received " + response.status);
+  });
+%}
+
+### Try to register a new user with existing username
+POST {{baseUrl}}/users/register
+Content-Type: application/json
+
+{
+  "username" : "{{existingUser}}",
+  "password": "F=ma",
+  "creatorUsername": "{{existingAdmin}}",
+  "type": "USER"
+}
+
+> {%
+  client.test("Response status is 409 because username already exists", function () {
+    client.assert(response.status === 409, "Expected status 409, but received " + response.status);
+  });
+%}
