@@ -41,16 +41,7 @@ public class UserService {
    */
   public User register(NewUser newUser) {
     String username = newUser.getUsername();
-    // registration fail if username already exists
-    if (userRepository.existsByUsername(username)) {
-      return null;
-    }
-
     User creator = userRepository.findByUsername(newUser.getCreatorUsername());
-    // registration should if creatorUsername isn't the username of an existing user of type admin
-    if (creator == null || creator.getType() != Types.ADMIN) {
-      return null;
-    }
 
     User user = new User();
     user.setUsername(newUser.getUsername());

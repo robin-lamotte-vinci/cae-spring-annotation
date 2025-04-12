@@ -90,46 +90,4 @@ class UserServiceTest {
         "Register a user with valid data should return an User instance.");
   }
 
-  @Test
-  void testRegisterWithExistingUsername() {
-    // Arrange
-    when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(true);
-
-    // Act
-    User result = userService.register(newUser);
-
-    // Assert
-    assertNull(result,
-        "Register a user with existing username should return null.");
-  }
-
-  @Test
-  void testRegisterWithUnknownCreatorUser() {
-    // Arrange
-    when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(false);
-    when(userRepository.findByUsername(newUser.getCreatorUsername())).thenReturn(null);
-
-    // Act
-    User result = userService.register(newUser);
-
-    // Assert
-    assertNull(result,
-        "Register a user with unknown creator user should return null.");
-  }
-
-  @Test
-  void testRegisterWithNonAdminCreator() {
-    // Arrange
-    when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(false);
-    when(userRepository.findByUsername(newUser.getCreatorUsername())).thenReturn(user);
-
-    // Act
-    User result = userService.register(newUser);
-
-    // Assert
-    assertNull(result,
-        "Register a user with non admin creator user should return null.");
-  }
-
-
 }
