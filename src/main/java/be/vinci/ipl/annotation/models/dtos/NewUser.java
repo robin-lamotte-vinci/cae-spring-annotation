@@ -2,6 +2,7 @@ package be.vinci.ipl.annotation.models.dtos;
 
 import be.vinci.ipl.annotation.annotations.UniqueUsername;
 import be.vinci.ipl.annotation.annotations.ValidAdminCreatorUsername;
+import be.vinci.ipl.annotation.annotations.ValidUserType;
 import be.vinci.ipl.annotation.models.entities.User.Types;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,6 +27,7 @@ public class NewUser {
   @ValidAdminCreatorUsername
   private String creatorUsername;
 
+  @ValidUserType(allowedTypes = {Types.USER})
   @NotNull
   private Types type;
 }
