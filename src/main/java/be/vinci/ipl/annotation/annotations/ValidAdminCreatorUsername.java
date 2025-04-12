@@ -1,14 +1,18 @@
 package be.vinci.ipl.annotation.annotations;
 
+import be.vinci.ipl.annotation.validators.AdminCreatorUsernameValidator;
+import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+
 /**
  * Annotation to validate that a username belongs to an existing user of type ADMIN
  */
+@Constraint(validatedBy = AdminCreatorUsernameValidator.class)
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidAdminCreatorUsername {
