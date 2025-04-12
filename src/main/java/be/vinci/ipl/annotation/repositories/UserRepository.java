@@ -10,4 +10,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
+  /**
+   * Check if a user exists by username.
+   *
+   * @param username the username to check
+   * @return true if a user with this username exists
+   */
+  boolean existsByUsername(String username);
 }
