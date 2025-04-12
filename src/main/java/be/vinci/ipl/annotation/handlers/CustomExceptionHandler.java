@@ -19,7 +19,7 @@ public class CustomExceptionHandler {
    * @return a ResponseEntity containing the exception message and HTTP status
    */
   @ExceptionHandler(UniqueUsernameException.class)
-  public ResponseEntity<String> handleUniqueEmailException(UniqueUsernameException ex) {
+  public ResponseEntity<String> handleUniqueUsernameException(UniqueUsernameException ex) {
     return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
   }
 
