@@ -17,4 +17,12 @@ public interface UserRepository extends CrudRepository<User, Long> {
    * @return true if a user with this username exists
    */
   boolean existsByUsername(String username);
+
+  /**
+   * Find a user by its username.
+   *
+   * @param username the username
+   * @return the user if exists, null otherwise
+   */
+  User findByUsername(String username);
 }
