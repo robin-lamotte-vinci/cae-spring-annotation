@@ -60,4 +60,14 @@ public class UserService {
 
     return userRepository.save(user);
   }
+
+  /**
+   * Read a user from its username.
+   *
+   * @param username the username of the user
+   * @return the user if it exists, null otherwise
+   */
+  public User readOneFromUsername(String username) {
+    return userRepository.findByUsername(username);
+  }
 }
