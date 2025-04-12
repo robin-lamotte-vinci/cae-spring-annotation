@@ -77,7 +77,6 @@ class UserServiceTest {
   @Test
   void testRegisterWithValidData() {
     // Arrange
-    when(userRepository.existsByUsername(newUser.getUsername())).thenReturn(false);
     when(userRepository.findByUsername(newUser.getCreatorUsername())).thenReturn(user.getCreator());
     when(userRepository.save(any(User.class))).thenReturn(user);
 
